@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SuperMaxVF — Python & Telegram Developer</title>
+<meta name="description" content="SuperMaxVF — Python-разработчик из Крыма. Telegram-боты, юзерботы, автоматизация на Raspberry Pi.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%238b5cf6'/%3E%3Ccircle cx='16' cy='16' r='15' fill='none' stroke='%23ffc94a' stroke-width='1.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <canvas id="stars-canvas" aria-hidden="true"></canvas>
+  <div class="nebula" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-glow halo" aria-hidden="true"></div>
+  <div class="cursor-glow core" aria-hidden="true"></div>
+
+  <!-- Фильтр вертикального motion blur (stdDeviation меняется из JS по скорости скролла) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="mblur-y" x="-5%" y="-60%" width="110%" height="220%" color-interpolation-filters="sRGB">
+      <feGaussianBlur id="mblur-y-node" stdDeviation="0 0"/>
+    </filter>
+  </svg>
+
+  <div class="lang-toggle" role="group" aria-label="Language switch">
+    <span class="lang-thumb" aria-hidden="true"></span>
+    <button type="button" data-lang="ru" class="active" aria-label="Русский">RU</button>
+    <button type="button" data-lang="en" aria-label="English">EN</button>
+  </div>
+
+  <div class="site">
+
+    <!-- ============ HERO ============ -->
+    <header class="hero">
+      <div class="hero-rays" aria-hidden="true"></div>
+      <div class="hero-emblem" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="46" stroke="url(#g1)" stroke-width="1.4" stroke-dasharray="2 6"/>
+          <circle cx="50" cy="50" r="22" fill="url(#g2)"/>
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="100" y2="100">
+              <stop offset="0" stop-color="#ffc94a"/>
+              <stop offset="1" stop-color="#8b5cf6"/>
+            </linearGradient>
+            <radialGradient id="g2" cx="0.35" cy="0.3" r="0.8">
+              <stop offset="0" stop-color="#ffe6a8"/>
+              <stop offset="0.55" stop-color="#8b5cf6"/>
+              <stop offset="1" stop-color="#6d28d9"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <p class="hero-role" data-i18n="hero.role">PYTHON-РАЗРАБОТЧИК · АВТОМАТИЗАЦИЯ TELEGRAM</p>
+      <h1 class="hero-title">SuperMaxVF</h1>
+      <p class="hero-tagline" data-i18n="hero.tagline">Пишу <strong>ботов, юзерботов и автоматизацию</strong>, которые живут на Raspberry Pi и не падают по ночам.</p>
+
+      <div class="hero-cta">
+        <a class="btn primary" href="#about"><span data-i18n="hero.cta1">Обо мне</span></a>
+        <a class="btn" href="#links"><span data-i18n="hero.cta2">Мои проекты и ссылки</span></a>
+      </div>
+
+      <a class="scroll-cue" href="#about" aria-label="Scroll down">
+        <span data-i18n="hero.scroll">Листай вниз</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v16M6 14l6 6 6-6"/></svg>
+      </a>
+    </header>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about">
+      <div class="container about-grid reveal-stagger">
+
+        <div class="about-bio reveal" style="--i:0">
+          <p class="eyebrow" data-i18n="about.eyebrow">// О себе</p>
+          <h2 class="section-title" data-i18n="about.title">Кто такой SuperMaxVF</h2>
+          <p data-i18n="about.p1" style="margin-top:22px;">Привет! Я <strong>Max</strong>, ученик 11 класса из Крыма, увлечён кибербезопасностью и автоматизацией. Пишу телеграм-ботов и юзерботов на <strong>Python</strong> (aiogram 3.x и Telethon) и поднимаю их в Docker на собственном <strong>Raspberry Pi 5</strong>.</p>
+          <p data-i18n="about.p2">Среди проектов — музыкальные загрузчики (Yandex Music, Spotify, SoundCloud) с шифрованным хранением токенов, ИИ-бот для анализа кода на уязвимости, модули для Hikka-юзербота, DVD-скринсейвер на ESP8266 и эксперименты с распознаванием жеста руки через OpenCV/MediaPipe.</p>
+          <p data-i18n="about.p3">Исходники и разборы выкладываю на <strong>GitHub</strong> и <strong>Boosty</strong>, процесс показываю в <strong>Telegram</strong> и на <strong>YouTube</strong>.</p>
+        </div>
+
+        <div class="terminal-wrap reveal" style="--i:1">
+        <div class="terminal" data-tilt>
+          <div class="terminal-bar">
+            <span class="terminal-path" data-i18n="terminal.path">~/supermaxvf/about.py</span>
+            <div class="win-controls" aria-hidden="true">
+              <span class="win-btn"><svg viewBox="0 0 12 12"><line x1="2" y1="9.5" x2="10" y2="9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+              <span class="win-btn"><svg viewBox="0 0 12 12"><rect x="2.5" y="2.5" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span>
+              <span class="win-btn close"><svg viewBox="0 0 12 12"><line x1="2.3" y1="2.3" x2="9.7" y2="9.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="9.7" y1="2.3" x2="2.3" y2="9.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+            </div>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line"><span class="prompt">&gt;</span><span><span data-i18n="terminal.role">Роль</span>: <span class="val" data-i18n="terminal.role.val">Python- и Telegram-разработчик</span></span></div>
+            <div class="terminal-line"><span class="prompt">&gt;</span><span><span data-i18n="terminal.base">База</span>: <span class="val" data-i18n="terminal.base.val">Крым, Россия</span></span></div>
+            <div class="terminal-line"><span class="prompt">&gt;</span><span><span data-i18n="terminal.stack">Стек</span>:</span></div>
+            <div class="skill-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">aiogram 3.x</span>
+              <span class="skill-tag">Telethon</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">Raspberry Pi</span>
+              <span class="skill-tag">SQLite</span>
+              <span class="skill-tag">OpenCV / MediaPipe</span>
+              <span class="skill-tag">ESP8266 / Arduino</span>
+              <span class="skill-tag">Hikka Userbot</span>
+              <span class="skill-tag">SMVF Userbot</span>
+            </div>
+          </div>
+        </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ LINKS / ORBIT ============ -->
+    <section id="links">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow" data-i18n="links.eyebrow">// Найти меня</p>
+          <h2 class="section-title" data-i18n="links.title">Ссылки и соцсети</h2>
+          <p class="section-lede" data-i18n="links.lede">Все проекты, исходники и посты — по этим орбитам.</p>
+        </div>
+
+        <!-- Desktop: animated orbit -->
+        <div class="orbit-wrap reveal" aria-hidden="false">
+          <div class="orbit-ring" style="width:42%;height:42%;"></div>
+          <div class="orbit-ring" style="width:62%;height:62%;"></div>
+          <div class="orbit-ring" style="width:82%;height:82%;"></div>
+
+          <canvas class="orbit-trails" aria-hidden="true"></canvas>
+
+          <div class="orbit-core"><span class="core-body" aria-hidden="true"></span><canvas class="planet-canvas" aria-hidden="true"></canvas><span class="core-label">SMVF</span></div>
+
+          <a class="orbit-link" href="https://t.me/MadeBySuperMaxVF" target="_blank" rel="noopener" data-angle="20" data-speed="17" aria-label="Telegram">
+            <span class="mono-icon">TG</span>
+          </a>
+          <a class="orbit-link" href="https://www.youtube.com/@SuperMaxVF" target="_blank" rel="noopener" data-angle="160" data-speed="13" aria-label="YouTube">
+            <span class="mono-icon">YT</span>
+          </a>
+          <a class="orbit-link" href="https://github.com/SuperMaxVF007" target="_blank" rel="noopener" data-angle="260" data-speed="16" aria-label="GitHub">
+            <span class="mono-icon">GH</span>
+          </a>
+          <a class="orbit-link" href="https://boosty.to/supermaxvf" target="_blank" rel="noopener" data-angle="90" data-speed="10" aria-label="Boosty">
+            <span class="mono-icon">BST</span>
+          </a>
+          <a class="orbit-link" href="https://www.tiktok.com/@supermaxvf0o7" target="_blank" rel="noopener" data-angle="320" data-speed="12" aria-label="TikTok">
+            <span class="mono-icon">TT</span>
+          </a>
+        </div>
+
+        <!-- Mobile / touch fallback: static card grid -->
+        <div class="link-cards links-fallback reveal reveal-stagger">
+          <a class="link-card" href="https://t.me/MadeBySuperMaxVF" target="_blank" rel="noopener" style="--i:0">
+            <span class="icon mono-icon">TG</span>
+            <span class="meta"><span class="name">Telegram</span><br><span class="handle" data-i18n="links.tg.handle">@MadeBySuperMaxVF</span></span>
+          </a>
+          <a class="link-card" href="https://www.youtube.com/@SuperMaxVF" target="_blank" rel="noopener" style="--i:1">
+            <span class="icon mono-icon">YT</span>
+            <span class="meta"><span class="name">YouTube</span><br><span class="handle" data-i18n="links.yt.handle">@SuperMaxVF</span></span>
+          </a>
+          <a class="link-card" href="https://github.com/SuperMaxVF007" target="_blank" rel="noopener" style="--i:2">
+            <span class="icon mono-icon">GH</span>
+            <span class="meta"><span class="name">GitHub</span><br><span class="handle" data-i18n="links.gh.handle">SuperMaxVF007</span></span>
+          </a>
+          <a class="link-card" href="https://boosty.to/supermaxvf" target="_blank" rel="noopener" style="--i:3">
+            <span class="icon mono-icon">BST</span>
+            <span class="meta"><span class="name">Boosty</span><br><span class="handle" data-i18n="links.bst.handle">supermaxvf</span></span>
+          </a>
+          <a class="link-card" href="https://www.tiktok.com/@supermaxvf0o7" target="_blank" rel="noopener" style="--i:4">
+            <span class="icon mono-icon">TT</span>
+            <span class="meta"><span class="name">TikTok</span><br><span class="handle" data-i18n="links.tt.handle">@supermaxvf0o7</span></span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-mark">Made By SuperMaxVF&lt;3</div>
+      <div class="footer-sub" data-i18n="footer.sub">Сайт-визитка · только статика, без бэкенда</div>
+    </footer>
+
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
